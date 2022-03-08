@@ -3,7 +3,6 @@ package com.example.danitexnobank.Service;
 import com.example.danitexnobank.models.Role;
 import com.example.danitexnobank.models.User;
 import com.example.danitexnobank.repositories.UserRepo;
-import com.example.danitexnobank.repositories.CreditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

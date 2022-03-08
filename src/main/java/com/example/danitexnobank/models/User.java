@@ -33,28 +33,17 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    private String passport;
-    private double income;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private ClientInfo clientInfo;
 
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pass_id")
+    private PassportInfo passportInfo;
 
     public User() {
-    }
-
-    public String getPassport() {
-        return passport;
-    }
-
-    public void setPassport(String passport) {
-        this.passport = passport;
-    }
-
-    public double getIncome() {
-        return income;
-    }
-
-    public void setIncome(double income) {
-        this.income = income;
     }
 
     public String getPassword2() {
@@ -77,8 +66,23 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
-    
 
+
+    public ClientInfo getClientInfo() {
+        return clientInfo;
+    }
+
+    public void setClientInfo(ClientInfo clientInfo) {
+        this.clientInfo = clientInfo;
+    }
+
+    public PassportInfo getPassportInfo() {
+        return passportInfo;
+    }
+
+    public void setPassportInfo(PassportInfo passportInfo) {
+        this.passportInfo = passportInfo;
+    }
 
     public Long getId() {
         return id;

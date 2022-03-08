@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
@@ -28,14 +29,14 @@ public class AutoController {
 
 
     @GetMapping("/reg")
-    public String reg(){
+    public String reg(@ModelAttribute("user") User user){
 
         return "reg";
     }
 
 
     @PostMapping("/reg")
-    public String addUser(@Valid User user,BindingResult bindingResult,Model mod){
+    public String addUser(@ModelAttribute("user") @Valid User user,BindingResult bindingResult,Model mod){
         if(bindingResult.hasErrors()){
             mod.addAttribute("massage1","логин, пароль или\n email неккоректны");
             return "reg";}

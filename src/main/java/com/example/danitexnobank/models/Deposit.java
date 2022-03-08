@@ -5,8 +5,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "credits")
-public class Credit {
+@Table(name = "deposit")
+public class Deposit {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -20,12 +20,10 @@ public class Credit {
     private Date startDate;
     private int term;
 
-    public Credit(){
-
-
+    public Deposit(){
     }
 
-    public Credit(double sum, User creditUser, double percent) {
+    public Deposit(double sum, User creditUser, double percent) {
         this.sum = sum;
         this.creditUser = creditUser;
         this.percent = percent;

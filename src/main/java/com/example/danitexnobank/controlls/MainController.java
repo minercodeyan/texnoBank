@@ -1,7 +1,6 @@
 package com.example.danitexnobank.controlls;
 import com.example.danitexnobank.Service.EmailSenderService;
-import com.example.danitexnobank.models.Credit;
-import com.example.danitexnobank.repositories.CreditRepository;
+import com.example.danitexnobank.repositories.DepositRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ public class MainController {
     @Autowired
     private EmailSenderService service;
     @Autowired
-    private CreditRepository creditRepository;
+    private DepositRepository depositRepository;
 
     @GetMapping("/")
     public String home(Model model) {
