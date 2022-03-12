@@ -18,14 +18,12 @@ public class EmailController {
     private EmailSenderService service;
     @Autowired
     private DepositRepository depositRepository;
-
     @Autowired
     private UserRepo userRepo;
 
     @PostMapping("/mail/{user}")
     public String sendmail(@PathVariable User user,
                            Model model) {
-
 
 
 

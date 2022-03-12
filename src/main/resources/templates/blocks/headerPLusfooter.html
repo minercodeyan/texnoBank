@@ -3,7 +3,7 @@
 <div xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
     <div class="d-flex flex-row mr-2">
-        <div class="p-2"><a href="#">Сотрудникам</a></div>
+        <div class="p-2"><a href="/profile/emp">Сотрудникам</a></div>
         <div class="p-2"><a href="#">Клиентам</a></div>
         <div class="p-2"><a href="/faq">О нас</a></div>
     </div>
@@ -30,7 +30,7 @@
 </div>
 </div>
 <th:block th:fragment="footer" xmlns:th="http://www.w3.org/1999/xhtml">
-    <footer class=" bg-light text-center text-lg-start">
+    <footer class="bg-primary text-center text-lg-start">
         <!-- Grid container -->
         <div class="container p-4">
             <!--Grid row-->
@@ -45,9 +45,6 @@
                         aliquam voluptatem veniam, est atque cumque eum delectus sint!
                     </p>
                 </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Footer text</h5>
                     <p>
@@ -60,9 +57,6 @@
             </div>
             <!--Grid row-->
         </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2020 Copyright:
             <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>

@@ -3,6 +3,7 @@ package com.example.danitexnobank.models;
 
 import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,8 +15,8 @@ public class ClientInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "client_id", nullable = false)
     private Long clientId;
-
     private String fio;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date busDate;
     private String sex;
     private String city;

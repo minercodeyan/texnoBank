@@ -11,64 +11,34 @@
 <body>
 <header th:insert="blocks/headerPLusfooter :: header">
 </header>
-<div class="container m-5 p-4 ">
-    <p>
-    <h2 class="text-info">Сделать депозит (1 этап)</h2> </p>
-    <div class="card bg-info">
+<div class="container m-5 p-4 d-flex justify-content-center">
+    <div class="card bg-info w-50">
+        <h2 class="mx-2 mt-2">Сделать депозит (2 этап)</h2>
         <div class="card-body m-4">
-            <form th:action="@{/deposit/add}" th:method="POST" th:object="${}">
+            <form th:action="@{/deposit/add2}" th:method="POST" th:object="${deposit}">
                 <div class="row">
                     <div class="col">
-                        <div class="d-flex flex-row w-25 mt-2">
-                            <input type="number" class="form-control" id="1" name="name" min="10" max="500000">
-                            <label for="1" class="m-2"> Имя</label>
+                        <div class="d-flex flex-row w-50 mt-2 mb-5 pt-4">
+                            <select id="s1" th:field="*{type}" class="form-select" aria-label="Default select example">
+                                <option value="-1" selected>Тип депозита</option>
+                                <option value="srochniy">срочный</option>
+                                <option value="bessrohniy">бессрочный</option>
+                            </select>
+                            <select id="s2" th:field="*{term}" class="form-select mx-4" aria-label="Default select example">
+                                <option th:value="-1" selected>Время</option>
+                                <option th:value="3">3 мес</option>
+                                <option th:value="6">6 мес</option>
+                                <option th:value="9">9 мес</option>
+                                <option th:value="12">12 мес</option>
+                            </select>
                         </div>
-                        <div class="d-flex flex-row w-50 mt-2">
-                            <input type="number" class="form-control" name="surName" min="10" max="500000">
-                            <label class="m-2"> Фамилия</label>
-                        </div>
-                        <div class="d-flex flex-row w-50 mt-2">
-                            <input type="number" class="form-control" name="father" min="10" max="500000">
-                            <label class="m-2"> Отчество</label>
-                        </div>
-                    </div>
-                    <label class="form-label mt-2">Введите сумму депозита</label>
-                    <div class="d-flex flex-row w-75 mt-2">
-                        <input type="number" class="form-control" name="sum" min="10" max="500000">
-                        <label class="m-2 text-danger"> БЕЛ.РУБ</label>
-                    </div>
-                    <label class="form-label mt-2 mb-2">Напишите свой доход</label>
-                    <div class="d-flex flex-row w-75 mt-2">
-                        <input type="number" class="form-control" name="income" min="10" max="500000">
-                    </div>
-                    <label class="form-label mt-2 mb-2">Напишите свои паспортные данныe</label>
-                    <div class="alert-primary w-50 m-2 p-4">
+                        <label class="form-label mt-2"><b>Введите сумму депозита</b></label>
                         <div class="d-flex flex-row w-75 mt-2">
-                            <div class="mx-2">
-                                <label>Серия паспорта</label>
-                                <input type="text" class="form-control" name="passport">
-                            </div>
-                            <div class="mx-2">
-                                <label>Номер паспорта</label>
-                                <input type="text" class="form-control" name="passport">
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row w-75 mt-2">
-                            <div class="mx-2">
-                                <label>Кем выдан</label>
-                                <input type="text" class="form-control" name="passport">
-                            </div>
-                            <div class="mx-2">
-                                <label>Когда выдан</label>
-                                <input type="text" class="form-control" name="passport">
-                            </div>
+                            <input type="number" class="form-control" th:field="*{sum}" min="10" max="500000">
+                            <label class="m-2 text-danger"> БЕЛ.РУБ</label>
                         </div>
                     </div>
-                    <div class="w-50">
-                        <label>Email</label>
-                        <input type="text" class="form-control" name="email" placeholder="name@name">
-                    </div>
-                    <input type="hidden" name="percent" value="12.3">
+                </div>
                     <button type="submit" class="btn btn-light mt-4 ">добавить</button>
             </form>
         </div>
@@ -77,6 +47,18 @@
 </div>
 <div th:insert="blocks/headerPLusfooter :: footer">
 </div>
+<script>
+    let firstSelect = document.getElementById("s1");
+    let doubleSelect = document.getElementById("s2");
+    doubleSelect.disabled = true;
+    firstSelect.addEventListener("change", function (event) {
+        if (event.target.value === 'srochniy') {
+            doubleSelect.disabled = false;
+        } else {
+            doubleSelect.disabled = true;
+        }
+    }, false);
+</script>
 </body>
 
 </html>

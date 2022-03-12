@@ -17,8 +17,12 @@ public class Deposit {
     private User creditUser;
     private double percent;
     private boolean isConfirm;
-    private Date startDate;
+    private Date endDate;
     private int term;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_texno_bank")
+    private Bank bank;
 
     public Deposit(){
     }
@@ -32,6 +36,14 @@ public class Deposit {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     public Long getId() {
@@ -82,12 +94,12 @@ public class Deposit {
         isConfirm = confirm;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public int getTerm() {
@@ -97,4 +109,5 @@ public class Deposit {
     public void setTerm(int term) {
         this.term = term;
     }
+
 }

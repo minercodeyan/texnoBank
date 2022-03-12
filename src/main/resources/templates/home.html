@@ -1,48 +1,53 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-        <title th:text="${title}"></title>
+    <title th:text="${title}"></title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-            <body>
-            <header th:insert="blocks/headerPLusfooter :: header">
-            </header>
-            <div class="container">
-                <div class="row">
-                    <div class="col text-center alert-info p-3"><a href="/">Кредит</a></div>
-                    <div class="col text-center alert-info p-3"><a href="/">Сервис и информация</a></div>
-                </div>
-            </div>
-            <div class="container p-3 mt-5"  style="margin-top:30px">
-                <div class="row">
-                    <div class="col-sm-7">
-                        <div class="text-center text-light p-5 bg-primary mt-1">Center aligned text on all viewport sizes.
-                            Вероятно, первое письменное описание ностальгических переживаний содержится в эпопее Гомера «Одиссея».
-                            Однако сам термин изобретён швейцарским врачом Иоганном Хофером в 1688 году,
-                            описывая заболевание швейцарских солдат, служивших наёмниками вдали от своей родины, и студентов, исцелявшихся сразу после возвращения домой.
-                            Длительное время ностальгия считалась болезнью (так она трактуется и в «Толковом словаре живого великорусского языка» В. И. Даля).
-                            Философия, психология и социология стали интересоваться ностальгией лишь в первой половине XX века. Развивая идеи Анри Бергсона, ученик Эмиля Дюркгейма
-                            <img class="bg-img rounded" th:src="@{/img/lol.png}" alt="карта">
+<body>
+<header th:insert="blocks/headerPLusfooter :: header">
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col text-center alert-info p-3"><a href="/deposit/add2">Депозит</a></div>
+        <div class="col text-center alert-info p-3"><a href="/faq">Сервис и информация</a></div>
+    </div>
+</div>
+<div class="container p-3 mt-5" style="margin-top:30px">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="text-light p-5 bg-primary mt-1">Технобанк является гарантом электронных
+                денег WMB, номинированных в белорусских рублях[6], и оказывает полный набор
+                услуг предусмотренных системой расчётов WebMoney Transfer для частных лиц и бизнес-клиентов.<br>
+                Основные виды деятельности банка:
+                <ul>
+                    <li>Кредитование юридических и физических лиц</li>
+                    <li>Привлечение во вклады (депозиты) средств юридических и физических лиц</li>
+                    <li>Операции с ценными бумагами</li>
+                    <li>Расчётно-кассовое обслуживание клиентов</li>
+                    <li>Лизинговые операции</li>
+                </ul>
+                <img class="bg-img rounded" th:src="@{/img/lol.png}" alt="карта">
 
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="m-3">
-                        <div class="has-bg-img ">
-                            <img class="bg-img rounded" th:src="@{/img/card1.png}" alt="карта1">
-                        </div>
-                        </div>
-                        <div class="m-3">
-                            <div class="has-bg-img ">
-                                <img class="bg-img rounded" th:src="@{/img/card2.png}" alt="карта1">
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="m-3">
+                <div class="has-bg-img ">
+                    <img class="bg-img rounded" th:src="@{/img/card1.png}" alt="карта1">
                 </div>
             </div>
-            <th:block th:insert="blocks/headerPLusfooter :: footer">
-            </th:block>
-            </body>
+            <div class="m-3">
+                <div class="has-bg-img ">
+                    <img class="bg-img rounded" th:src="@{/img/card2.png}" alt="карта1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:insert="blocks/headerPLusfooter :: footer">
+</th:block>
+</body>
 </html>

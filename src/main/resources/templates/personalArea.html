@@ -23,7 +23,6 @@
         <tr  th:each="el : ${users}" >
             <th scope="row" >#</th>
             <td> <h5 class="text-left" th:text="${el.username}"/></td>
-            <td> <h5 class="text-left" th:text="${#strings.setJoin(el.roles, ',')}"/></td>
             <td><a th:href="'/user/'+${el.id}">Редактировать</a></td>
             <td></td>
         </tr>
