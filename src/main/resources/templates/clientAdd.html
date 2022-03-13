@@ -20,51 +20,56 @@
                 <div class="row" th:object="${clientInfo}">
                     <div class="col">
                         <div class="d-flex flex-row w-25 mt-3">
-                            <input type="text" class="form-control" name="name" >
+                            <input type="text" th:class="'form-control '+ ${nameErr!=null?'is-invalid':''}" name="name" >
                             <label class="m-2"> Имя</label>
                         </div>
                         <div class="d-flex flex-row w-50 mt-3">
-                            <input type="text" class="form-control" name="surName" >
+                            <input type="text" th:class="'form-control '+ ${nameErr!=null?'is-invalid':''}" name="surName" >
                             <label class="m-2"> Фамилия</label>
                         </div>
                         <div class="d-flex flex-row w-50 mt-2">
-                            <input type="text" class="form-control" name="father" >
+                            <input type="text" th:class="'form-control '+ ${nameErr!=null?'is-invalid':''}"name="father" >
                             <label class="m-2"> Отчество</label>
                         </div>
-                        <div class="d-flex flex-row w-50 mt-3">
-                            <input type="date" class="form-control" th:field="*{busDate}">
+                       <div class="d-flex flex-row w-50 mt-3">
+                            <input type="date"  th:class="'form-control '+ ${busDateError!=null?'is-invalid':''}" th:field="*{busDate}">
                             <label class="m-2"> Дата рождения</label>
                         </div>
                         <div class="form-check mt-2">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio"  th:field="*{sex}" th:value="'муж'" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 МУЖ
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <input class="form-check-input" type="radio" th:field="*{sex}" th:value="'жен'"id="flexRadioDefault2" checked>
                             <label class="form-check-label" for="flexRadioDefault2">
                                 ЖЕНСК
                             </label>
                         </div>
                         <div class="d-flex flex-row w-50 mt-2">
-                            <input type="text" class="form-control" th:field="*{city}">
+                            <input type="text" th:class="'form-control '+ ${cityError!=null?'is-invalid':''}" th:field="*{city}">
                             <label class="m-2"> Город проживания</label>
                         </div>
+                        <th:block th:if="${cityError}">
+                            <div class="invalid-feedback" th:text="${cityError}"></div>
+                        </th:block>
                     </div>
-                    <div class="col-sm-2">
-                        tjk9ijtitj
+                    <div class="col-sm-3">
+                        <h6>tjk9ijtitjkifkik</h6>
                     </div>
                     <label class="form-label mt-2 mb-2">Напишите свои паспортные данныe</label>
                     <div class="alert-primary w-50 m-2 p-4" th:object="${passportInfo}">
                         <div class="d-flex flex-row w-75 mt-2">
                             <div class="mx-2" >
                                 <label>Серия паспорта</label>
-                                <input type="text" class="form-control" th:field="*{passportNumber}">
+                                <input type="text" class="form-control" th:class="'form-control '+ ${passportInfoError!=null?'is-invalid':''}"
+                                       th:field="*{passportNumber}">
                             </div>
                             <div class="mx-2">
                                 <label>Номер паспорта</label>
-                                <input type="number" class="form-control" th:field="*{passportSeries}">
+                                <input type="number" class="form-control" th:class="'form-control '+ ${passportSeriesError!=null?'is-invalid':''}"
+                                       th:field="*{passportSeries}">
                             </div>
                         </div>
                         <div class="d-flex flex-row w-75 mt-2">

@@ -2,36 +2,36 @@ package com.example.danitexnobank.controlls;
 
 
 import com.example.danitexnobank.Service.BankService;
+import com.example.danitexnobank.Service.DepositService;
 import com.example.danitexnobank.Service.TimerService;
+import com.example.danitexnobank.Service.UserService;
 import com.example.danitexnobank.models.*;
-import com.example.danitexnobank.repositories.*;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/deposit")
 public class DepositController {
 
+
+    private final DepositService depositService;
+    private final UserService userService;
+
     @Autowired
-    DepositRepository depositRepository;
-    @Autowired
-    UserRepo userRepo;
-    @Autowired
-    ClientRepo clientRepo;
-    @Autowired
-    PassportRepo passportRepo;
-    @Autowired
-    BankRepo bankRepo;
-    @Autowired
-    BankService bankService;
-    @Autowired
-    TimerService timerService;
+    public DepositController(DepositService depositService, UserService userService) {
+        this.depositService = depositService;
+        this.userService = userService;
+    }
 
 
     @GetMapping("/add")
@@ -41,37 +41,36 @@ public class DepositController {
         }
         model.addAttribute("clientInfo", new ClientInfo());
         model.addAttribute("passportInfo", new PassportInfo());
-        model.addAttribute("User", user);
         return "clientAdd";
     }
 
     @PostMapping("/add")
-    public String addClient(@AuthenticationPrincipal User user, Model model,
+    public String addClient(@AuthenticationPrincipal User user,
                             @RequestParam String name,
                             @RequestParam String surName,
                             @RequestParam String father,
-                            @ModelAttribute("clientInfo") ClientInfo clientInfo,
-                            @ModelAttribute("passportInfo") PassportInfo passportInfo,
-                            @RequestParam(name = "email") String email
+                            @ModelAttribute("clientInfo") @Valid ClientInfo clientInfo,BindingResult bindingResult,
+                            @ModelAttribute("passportInfo") @Valid PassportInfo passportInfo, BindingResult bindingResult2,
+                            @RequestParam String email, Model model
     ) {
-        String redex = "[\\d]";
-        if (name.equals(redex)) {
-            System.out.println(1);
+        if (bindingResult.hasErrors() == true||bindingResult2.hasErrors() == true) {
+            Map<String, String> errMap = ControllerUtils.getErrors(bindingResult);
+            Map<String, String> errMap2 = ControllerUtils.getErrors(bindingResult2);
+            model.mergeAttributes(errMap);
+            model.mergeAttributes(errMap2);
+            if(name!=null||surName!=null||father!=null)
+                model.addAttribute("nameErr","Введите");
+            return "clientAdd";
         }
-        clientInfo.setFio(name + " " + surName + " " + father);
-        user.setEmail(email);
-        clientRepo.save(clientInfo);
-        passportRepo.save(passportInfo);
-        user.setClientInfo(clientInfo);
-        user.setPassportInfo(passportInfo);
-        userRepo.save(user);
+    //    userService.addClient(user, name, surName, father, clientInfo, passportInfo, email);
+        System.out.println(";p");
         return "redirect:/";
     }
 
     @GetMapping("/add2")
     public String addDeposGET(@AuthenticationPrincipal User user, Model model) {
         if (user.getClientInfo() == null || user.getPassportInfo() == null)
-            return "redirect:/clientAdd";
+            return "redirect:/deposit/add";
         model.addAttribute("deposit", new Deposit());
         return "depositAddStep2";
     }
@@ -79,47 +78,36 @@ public class DepositController {
     @PostMapping("/add2")
     public String addDepos(@AuthenticationPrincipal User user,
                            @ModelAttribute Deposit deposit,
-
                            Model model) {
         if (deposit.getType().equals(-1) || deposit.getTerm() == -1) {
             model.addAttribute("deposit", new Deposit());
             model.addAttribute("errmess", "error");
             return "depositAddStep2";
         }
-        deposit.setCreditUser(user);
-        if (deposit.getType().equals("srochniy")){
-            deposit.setEndDate(timerService.endDateMethod(deposit.getTerm()));
-            deposit.setPercent(deposit.getTerm());
-        }
-        else {
-            deposit.setTerm(-1);
-            deposit.setPercent(0.1);
-        }
-        depositRepository.save(deposit);
+        depositService.addDeposit(user, deposit);
+
         return "redirect:/";
     }
 
     @GetMapping("{deposit}/info")
     public String depositInfo(@AuthenticationPrincipal User curUser, @PathVariable Deposit deposit, Model model) {
-       boolean isEmp = curUser.getRoles().stream().anyMatch(role -> role==role.EMPLOYEE);
-        if(isEmp==true&&deposit.isConfirm()==false){
-            model.addAttribute("itsEmp",true);
+        boolean isEmp = curUser.getRoles().stream().anyMatch(role -> role == role.EMPLOYEE);
+        if (isEmp == true && deposit.isConfirm() == false) {
+            model.addAttribute("itsEmp", true);
             System.out.println(1);
         }
         User user = deposit.getCreditUser();
         model.addAttribute("inf1", user.getUsername());
-        model.addAttribute("deposit",deposit);
+        model.addAttribute("deposit", deposit);
         if (curUser.equals(user))
-            model.addAttribute("take","take");
+            model.addAttribute("take", "take");
         return "depositDetails";
     }
 
     @PostMapping("{id}/take")
-    public String deposit(@PathVariable Deposit deposit, Model model) {
-        User user = deposit.getCreditUser();
-        model.addAttribute("inf1", user.getUsername());
-        model.addAttribute("inf4", deposit.getSum());
-        return "depositDetails";
+    public String depositTake(@PathVariable(name = "id") long id, Model model) {
+        depositService.takeDeposit(id);
+        return "redirect:/profile";
     }
 
 
@@ -127,14 +115,7 @@ public class DepositController {
     @PreAuthorize("hasAuthority('EMPLOYEE')")
     public String confirmDeposit(@PathVariable(value = "id") long id,
                                  Model model) {
-        Optional<Deposit> optionalDeposit=depositRepository.findById(id);
-        Deposit deposit = optionalDeposit.get();
-        deposit.setConfirm(true);
-        Optional<Bank> optionalBank = bankRepo.findById(1L);
-        Bank bank = optionalBank.get();
-        bank.setFond(bankService.increaseFond(bank.getFond(), deposit));
-        bankRepo.save(bank);
-        depositRepository.save(deposit);
+        depositService.confirmDeposit(id);
         return "redirect:/";
     }
 }

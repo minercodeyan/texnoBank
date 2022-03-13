@@ -42,11 +42,8 @@ public class UserController {
     public String userEdit(@RequestParam String username,
                            @RequestParam Map<String, String> form,
                            @RequestParam("userId") User user, Model model) {
-
-        System.out.println(user);
-        User userfromDb = userRepo.findByUsername(username);
-
-        if (userfromDb != null&&username.equals(user.getUsername())==false) {
+        User userFromDb = userRepo.findByUsername(username);
+        if (userFromDb != null&&username.equals(user.getUsername())==false) {
             model.addAttribute("err", "такое имя уже есть");
             model.addAttribute("user", user);
             model.addAttribute("roles", Role.values());

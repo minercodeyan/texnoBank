@@ -1,11 +1,13 @@
 package com.example.danitexnobank.models;
 
-
-import net.bytebuddy.implementation.bind.annotation.Default;
-import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -17,8 +19,12 @@ public class ClientInfo {
     private Long clientId;
     private String fio;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "не может быть пустым")
     private Date busDate;
+    @NotNull(message = "не может быть пустым")
     private String sex;
+    @NotEmpty(message = "не может быть пустым")
+    @Size(max = 30,message = "слишком много символов")
     private String city;
     private String isMilitary;
 

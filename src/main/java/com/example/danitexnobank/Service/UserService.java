@@ -1,7 +1,11 @@
 package com.example.danitexnobank.Service;
 
+import com.example.danitexnobank.models.ClientInfo;
+import com.example.danitexnobank.models.PassportInfo;
 import com.example.danitexnobank.models.Role;
 import com.example.danitexnobank.models.User;
+import com.example.danitexnobank.repositories.ClientRepo;
+import com.example.danitexnobank.repositories.PassportRepo;
 import com.example.danitexnobank.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,9 +25,13 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
 
+    private final ClientRepo clientRepo;
+    private final PassportRepo passportRepo;
     private final UserRepo userRepo;
     @Autowired
-    public UserService(UserRepo userRepo){
+    public UserService(ClientRepo clientRepo, PassportRepo passportRepo, UserRepo userRepo){
+        this.clientRepo = clientRepo;
+        this.passportRepo = passportRepo;
         this.userRepo=userRepo;
     }
 
@@ -56,6 +64,22 @@ public class UserService implements UserDetailsService {
         }
         user.setUsername(username);
         userRepo.save(user);
+    }
+
+    public void addClient(User user, String name, String surName, String father,
+                          ClientInfo clientInfo, PassportInfo passportInfo, String email) {
+        String redex = "[\\d]";
+        if (name.equals(redex)) {
+            System.out.println(1);
+        }
+        clientInfo.setFio(name + " " + surName + " " + father);
+        user.setEmail(email);
+        clientRepo.save(clientInfo);
+        passportRepo.save(passportInfo);
+        user.setClientInfo(clientInfo);
+        user.setPassportInfo(passportInfo);
+        userRepo.save(user);
+
     }
 }
 

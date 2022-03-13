@@ -14,18 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EmailController {
-    @Autowired
-    private EmailSenderService service;
-    @Autowired
-    private DepositRepository depositRepository;
-    @Autowired
-    private UserRepo userRepo;
+
 
     @PostMapping("/mail/{user}")
     public String sendmail(@PathVariable User user,
                            Model model) {
-
-
 
         return "redirect:/user";
     }

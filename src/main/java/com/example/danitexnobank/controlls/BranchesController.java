@@ -25,20 +25,6 @@ public class BranchesController {
         return "branches";
     }
 
-    @GetMapping("/employee/add")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String add(Model model) {
-        Iterable<Branches> branches = branchesRepo.findAll();
-        model.addAttribute("branches",branches);
-        return "branchesAdd";
-    }
-    @PostMapping("/employee/add")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String addBran(Model model) {
-        Iterable<Branches> branches = branchesRepo.findAll();
-        model.addAttribute("branches",branches);
-        return "redirect:/employee";
-    }
 
 
 }

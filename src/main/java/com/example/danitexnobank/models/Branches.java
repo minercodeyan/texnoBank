@@ -1,6 +1,5 @@
 package com.example.danitexnobank.models;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +8,7 @@ public class Branches {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String adress;
+    private String address;
     private String ServiceForIndividuals;
     private String serviceInfo;
 
@@ -34,12 +33,12 @@ public class Branches {
         this.name = name;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getServiceForIndividuals() {
