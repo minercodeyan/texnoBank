@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -34,9 +35,7 @@ public class profilesController {
         List<Deposit> lst= depositRepository.findAllByCreditUser(currUser);
         ClientInfo clientInfo = currUser.getClientInfo();
         model.addAttribute("deposits",lst);
-        model.addAttribute("username",currUser.getUsername());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        model.addAttribute("busDate",formatter.format(clientInfo.getBusDate()));
+        model.addAttribute("date" ,new Date().getTime());
         return "profile";
     }
 

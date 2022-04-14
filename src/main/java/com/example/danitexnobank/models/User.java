@@ -22,8 +22,6 @@ public class User implements UserDetails {
     @NotBlank(message = "не может быть пустым")
     @Length(min=6,max=4096, message = "Слишком длинный текст")
     private String password;
-    @Email(message = "не корректный email")
-    @NotBlank(message = "не может быть пустым")
     private String email;
     @Transient
     private String password2;

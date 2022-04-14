@@ -1,12 +1,12 @@
 package com.example.danitexnobank.controlls;
 
 
-import com.example.danitexnobank.Service.BankService;
 import com.example.danitexnobank.Service.DepositService;
-import com.example.danitexnobank.Service.TimerService;
 import com.example.danitexnobank.Service.UserService;
-import com.example.danitexnobank.models.*;
-import org.jetbrains.annotations.NotNull;
+import com.example.danitexnobank.models.ClientInfo;
+import com.example.danitexnobank.models.Deposit;
+import com.example.danitexnobank.models.PassportInfo;
+import com.example.danitexnobank.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import java.util.Map;
 
 @Controller
@@ -62,7 +61,7 @@ public class DepositController {
                 model.addAttribute("nameErr","Введите");
             return "clientAdd";
         }
-    //    userService.addClient(user, name, surName, father, clientInfo, passportInfo, email);
+       userService.addClient(user, name, surName, father, clientInfo, passportInfo, email);
         System.out.println(";p");
         return "redirect:/";
     }
@@ -70,21 +69,20 @@ public class DepositController {
     @GetMapping("/add2")
     public String addDeposGET(@AuthenticationPrincipal User user, Model model) {
         if (user.getClientInfo() == null || user.getPassportInfo() == null)
-            return "redirect:/deposit/add";
+            return "redirect:/add";
         model.addAttribute("deposit", new Deposit());
         return "depositAddStep2";
     }
 
     @PostMapping("/add2")
-    public String addDepos(@AuthenticationPrincipal User user,
-                           @ModelAttribute Deposit deposit,
+    public String addDepos(@ModelAttribute Deposit deposit, @AuthenticationPrincipal User user,
                            Model model) {
         if (deposit.getType().equals(-1) || deposit.getTerm() == -1) {
             model.addAttribute("deposit", new Deposit());
             model.addAttribute("errmess", "error");
             return "depositAddStep2";
         }
-        depositService.addDeposit(user, deposit);
+        depositService.addDeposit(deposit,user.getUsername());
 
         return "redirect:/";
     }
@@ -106,8 +104,10 @@ public class DepositController {
 
     @PostMapping("{id}/take")
     public String depositTake(@PathVariable(name = "id") long id, Model model) {
-        depositService.takeDeposit(id);
-        return "redirect:/profile";
+        double newD=depositService.takeDeposit(id);
+        System.out.println(newD);
+        model.addAttribute("newDeposit",newD);
+        return "profile";
     }
 
 

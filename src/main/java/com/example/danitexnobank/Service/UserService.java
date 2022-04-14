@@ -40,7 +40,6 @@ public class UserService implements UserDetailsService {
         return userRepo.findByUsername(username);
     }
 
-    @PostMapping("/reg")
     public boolean addUser(User user) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
         if (userFromDb != null || !user.getPassword().equals(user.getPassword2())) {

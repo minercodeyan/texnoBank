@@ -12,7 +12,7 @@
 <header th:insert="blocks/headerPLusfooter :: header">
 </header>
 <div class="container m-5 p-4 d-flex justify-content-center">
-    <div class="card bg-info w-50">
+    <div class="card w-75 alert-info">
         <h2 class="mx-2 mt-2">Сделать депозит (2 этап)</h2>
         <div class="card-body m-4">
             <form th:action="@{/deposit/add2}" th:method="POST" th:object="${deposit}">

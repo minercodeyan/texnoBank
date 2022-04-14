@@ -24,6 +24,7 @@ public class AutoController {
         StringTrimmerEditor stringTrimmerEditor= new StringTrimmerEditor(true);
         dataBinder.registerCustomEditor(String.class,stringTrimmerEditor);
     }
+
     @Autowired
     private UserService userService;
 

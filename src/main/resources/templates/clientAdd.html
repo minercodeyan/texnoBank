@@ -14,7 +14,7 @@
 <div class="container m-5 p-4 ">
     <p>
     <h2 class="text-info">Сделать депозит (1 этап)</h2> </p>
-    <div class="card bg-info ">
+    <div class="card alert-info" >
         <div class="card-body m-4">
             <form th:action="@{/deposit/add}" th:method="POST">
                 <div class="row" th:object="${clientInfo}">

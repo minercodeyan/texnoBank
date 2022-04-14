@@ -10,25 +10,9 @@
 <header th:insert="blocks/headerPLusfooter :: header">
 </header>
 <main role=main class="container mt-5">
-    <div class="mt-4 p-3 d-flex p-4 justify-content-center">
-        <div class="card p-4 w-100">
+    <div class="mt-4 p-3 d-flex p-4">
+        <div class="card p-4 w-50">
             <div class="row">
-                <div class="col-sm">
-                    <div class=" image d-flex flex-column justify-content-center align-items-center">
-                        <button class="btn btn-secondary"><img src="https://i.imgur.com/wvxPV9S.png" height="100"
-                                                               width="100"/>
-                        </button>
-                        <span class="name mt-3" th:text="${username}"></span> <span class="idd">@client</span>
-                        <div class="d-flex flex-row justify-content-center align-items-center mt-3"></div>
-                        <div class=" d-flex mt-2">
-                            <button class="btn1 btn-dark">Edit Profile</button>
-                        </div>
-                        <div class="text mt-3"><span th:text="${busDate}"></span>
-                        </div>
-                        <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"></div>
-                        <div class=" px-2 rounded mt-4 date "><span class="join">2021</span></div>
-                    </div>
-                </div>
                 <div class="col-sm">
                    <div class="alert-info">
                        <div class="p-3"><b>Ваши вклады</b></div>
@@ -36,14 +20,17 @@
                            <div class="alert alert-info">
                                <div>Сумма вклада: <span th:text="${el.sum}"></span></div>
                                <div>Тип вклада: <span th:text="${el.type}"></span></div>
-                               <th:block th:if="${el.type}=='bessrohniy'">
+                               <th:block th:if="${el.type=='bessrohniy'||el.endDate.getTime()<date}">
                                <form th:action="'/deposit/'+${el.id}+'/take'" method="post">
-                                   <button type="submit" class="btn">Забрать вклад</button>
+                                   <button type="submit" class="btn btn-primary">Забрать вклад</button>
                                </form>
                                </th:block>
                            </div>
                        </th:block>
                     </div>
+                </div>
+                <div class="col-sm">
+                    Вы получили <span th:if="${newDeposit}" th:text="${newDeposit}"></span>
                 </div>
             </div>
         </div>

@@ -16,7 +16,6 @@ public class Branches {
 
     }
 
-
     public Long getId() {
         return id;
     }

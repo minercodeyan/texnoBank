@@ -12,8 +12,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="d-flex justify-content-center mt-5">
     <form th:action="@{/reg}" method="post" th:object="${user}">
-        <div class="container mt-5 mb-5">
-            <div class="card m-5 p-5">
+        <div class="container">
+            <div class="card ">
                 <div class="card-body">
                     <h2 class="text-center">Регистрация</h2>
                     <div class="form-group">
@@ -30,7 +30,7 @@
                         </div>
                         <div th:if="${massage}!=0" th:text="${massage}"></div>
                         <div th:if="CheckPasswordMatch!=0">
-                            <input type="submit" value="Зарегистрироваться" class="btn btn-primary" />
+                            <input type="submit" value="Зарегистрироваться" class="btn btn-info" />
                         </div>
                     </div>
                 </div>
