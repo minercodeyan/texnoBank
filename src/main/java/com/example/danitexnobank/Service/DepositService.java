@@ -2,6 +2,7 @@ package com.example.danitexnobank.Service;
 
 
 import com.example.danitexnobank.models.Bank;
+import com.example.danitexnobank.models.Currency;
 import com.example.danitexnobank.models.Deposit;
 import com.example.danitexnobank.repositories.BankRepo;
 import com.example.danitexnobank.repositories.DepositRepository;
@@ -13,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,10 +67,13 @@ public class DepositService {
                 deposit.setPercent(5);
             else
                 deposit.setPercent(6);
-        } else {
+        } else
+        {
+            deposit.setEndDate(new Date());
             deposit.setTerm(-1);
             deposit.setPercent(0.1);
         }
+        deposit.setCurrency(new Currency(1L));
         deposit.setCreditUser(userRepo.findByUsername(name));
         System.out.println(deposit);
         depositRepository.save(deposit);

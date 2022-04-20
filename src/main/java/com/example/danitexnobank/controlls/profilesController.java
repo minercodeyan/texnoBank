@@ -32,8 +32,9 @@ public class profilesController {
 
     @GetMapping()
     public String profile(@AuthenticationPrincipal User currUser, Model model) {
+        if(currUser.getClientInfo()==null)
+            return "redirect:/deposit/add";
         List<Deposit> lst= depositRepository.findAllByCreditUser(currUser);
-        ClientInfo clientInfo = currUser.getClientInfo();
         model.addAttribute("deposits",lst);
         model.addAttribute("date" ,new Date().getTime());
         return "profile";

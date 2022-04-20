@@ -11,7 +11,7 @@
 </header>
 <main role=main class="container mt-5">
     <div class="mt-4 p-3 d-flex p-4">
-        <div class="card p-4 w-50">
+        <div class="card p-4 w-100">
             <div class="row">
                 <div class="col-sm">
                    <div class="alert-info">
@@ -20,7 +20,7 @@
                            <div class="alert alert-info">
                                <div>Сумма вклада: <span th:text="${el.sum}"></span></div>
                                <div>Тип вклада: <span th:text="${el.type}"></span></div>
-                               <th:block th:if="${el.type=='bessrohniy'||el.endDate.getTime()<date}">
+                               <th:block th:if="${el.type=='bessroсhniy'||el.endDate.getTime()<date}">
                                <form th:action="'/deposit/'+${el.id}+'/take'" method="post">
                                    <button type="submit" class="btn btn-primary">Забрать вклад</button>
                                </form>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    Вы получили <span th:if="${newDeposit}" th:text="${newDeposit}"></span>
+                   <h3> Вы получили</h3><span th:if="${newDeposit}" th:text="${newDeposit}"></span>
                 </div>
             </div>
         </div>

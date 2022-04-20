@@ -61,7 +61,7 @@ public class DepositController {
                 model.addAttribute("nameErr","Введите");
             return "clientAdd";
         }
-       userService.addClient(user, name, surName, father, clientInfo, passportInfo, email);
+        userService.addClient(user, name, surName, father, clientInfo, passportInfo, email);
         System.out.println(";p");
         return "redirect:/";
     }

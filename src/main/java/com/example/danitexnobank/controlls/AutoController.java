@@ -31,7 +31,6 @@ public class AutoController {
 
     @GetMapping("/reg")
     public String reg(@ModelAttribute("user") User user){
-
         return "reg";
     }
 

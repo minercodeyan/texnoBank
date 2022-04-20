@@ -16,6 +16,9 @@ public class Deposit {
     @JoinColumn(name = "user_id")
     private User creditUser;
     private double percent;
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
+    private Currency currency;
     private boolean isConfirm;
     private Date endDate;
     private int term;
@@ -36,6 +39,14 @@ public class Deposit {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
     }
 
     public Bank getBank() {

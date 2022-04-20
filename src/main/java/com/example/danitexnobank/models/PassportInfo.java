@@ -5,9 +5,9 @@ import org.hibernate.validator.constraints.Length;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Pattern;
 
 @Entity
@@ -17,6 +17,8 @@ public class PassportInfo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pass_id", nullable = false)
     private Long id;
+
+
     @Pattern(regexp = "[a-zA-Z]{2}",message = "неккректный ввод")
     private String passportSeries;
     @NotEmpty(message = "не может быть пустым")

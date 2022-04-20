@@ -22,7 +22,7 @@
                             <select id="s1" th:field="*{type}" class="form-select" aria-label="Default select example">
                                 <option value="-1" selected>Тип депозита</option>
                                 <option value="srochniy">срочный</option>
-                                <option value="bessrohniy">бессрочный</option>
+                                <option value="bessrochniy">бессрочный</option>
                             </select>
                             <select id="s2" th:field="*{term}" class="form-select mx-4" aria-label="Default select example">
                                 <option th:value="-1" selected>Время</option>
@@ -30,6 +30,12 @@
                                 <option th:value="6">6 мес</option>
                                 <option th:value="9">9 мес</option>
                                 <option th:value="12">12 мес</option>
+                            </select>
+                            <select class="form-select mx-4" aria-label="Default select example">
+                                <option value="-1" selected>Валюта</option>
+                                <option value="usd">USD</option>
+                                <option value="eur">EUR</option>
+                                <option value="rub">RUB</option>
                             </select>
                         </div>
                         <label class="form-label mt-2"><b>Введите сумму депозита</b></label>
